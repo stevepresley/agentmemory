@@ -2,11 +2,11 @@
 
 **Project:** agentmemory  
 **Session ID:** 01a1e50f-2c7a-7322-81a6-86c5bbc9912a  
-**Session Time:** 2026-11-16 15:52–23:36 UTC  
+**Session Time:** 2026-11-16 15:52–23:40 UTC  
 
 ---
 
-## Full Incident List (11 Total)
+## Full Incident List (12 Total)
 
 | # | Description | Commit | PR |
 |---|---|---|---|
@@ -21,6 +21,7 @@
 | 9 | [Did not evaluate the entire prompt](2026-11-16-2258-Behavior-Observation-09.md) | [`f257c81d896277294103ea74e969b0d335a60d28`](https://github.com/stevepresley/agentmemory/commit/f257c81d896277294103ea74e969b0d335a60d28) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 10 | [Guessed 1B tool-calling without research](2026-11-16-2258-Behavior-Observation-10.md) | [`23c0361f221afc00607ab3e000f7fb7dd3a2d1dc`](https://github.com/stevepresley/agentmemory/commit/23c0361f221afc00607ab3e000f7fb7dd3a2d1dc) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 11 | [Filed #6–#10 without preview](2026-11-16-2336-Behavior-Observation-11.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 12 | [Restarted the unfiled list at 1 instead of tracker #11](2026-11-16-2340-Behavior-Observation-12.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 
 ## Instructions
 
