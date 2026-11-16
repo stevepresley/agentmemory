@@ -2,11 +2,11 @@
 
 **Project:** agentmemory  
 **Session ID:** 01a1e50f-2c7a-7322-81a6-86c5bbc9912a  
-**Session Time:** 2026-11-16 15:52–17:22 UTC  
+**Session Time:** 2026-11-16 15:52–22:58 UTC  
 
 ---
 
-## Full Incident List (5 Total)
+## Full Incident List (10 Total)
 
 | # | Description | Commit | PR |
 |---|---|---|---|
@@ -15,6 +15,11 @@
 | 3 | [git status on tmp/ during agent-skills issue search](2026-11-16-1651-Behavior-Observation-03.md) | [`2cea444aaebbbae04e5a0add9dd5cf562649ee8a`](https://github.com/stevepresley/agentmemory/commit/2cea444aaebbbae04e5a0add9dd5cf562649ee8a) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 4 | [Skipped operator-named CT proof (Pi + localllm in tmux)](2026-11-16-1651-Behavior-Observation-04.md) | [`c16bacf9f7206ccb949361db9954a93586561b4b`](https://github.com/stevepresley/agentmemory/commit/c16bacf9f7206ccb949361db9954a93586561b4b) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 5 | [Filed observations before confirmation](2026-11-16-1722-Behavior-Observation-05.md) | [`6a5b659fa7760828fbfd01d7d9a24daa7f45809d`](https://github.com/stevepresley/agentmemory/commit/6a5b659fa7760828fbfd01d7d9a24daa7f45809d) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 6 | [Destroyed CT without operator order](2026-11-16-2258-Behavior-Observation-06.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 7 | [Ran a blank CT daemon instead of stopping](2026-11-16-2258-Behavior-Observation-07.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 8 | [Waited for nano instead of copying the Tank secret file](2026-11-16-2258-Behavior-Observation-08.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 9 | [Did not evaluate the entire prompt](2026-11-16-2258-Behavior-Observation-09.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 10 | [Guessed 1B tool-calling without research](2026-11-16-2258-Behavior-Observation-10.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 
 ## Instructions
 
