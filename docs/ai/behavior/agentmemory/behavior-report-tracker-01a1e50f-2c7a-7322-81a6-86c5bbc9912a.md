@@ -2,11 +2,11 @@
 
 **Project:** agentmemory  
 **Session ID:** 01a1e50f-2c7a-7322-81a6-86c5bbc9912a  
-**Session Time:** 2026-11-16 15:52–16:51 UTC  
+**Session Time:** 2026-11-16 15:52–17:22 UTC  
 
 ---
 
-## Full Incident List (4 Total)
+## Full Incident List (5 Total)
 
 | # | Description | Commit | PR |
 |---|---|---|---|
@@ -14,6 +14,7 @@
 | 2 | [Did not answer whether the pickup skill names In Progress](2026-11-16-1651-Behavior-Observation-02.md) | [`7fcf26d5db029a4ee20178c47df12539ba04a5d7`](https://github.com/stevepresley/agentmemory/commit/7fcf26d5db029a4ee20178c47df12539ba04a5d7) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 3 | [git status on tmp/ during agent-skills issue search](2026-11-16-1651-Behavior-Observation-03.md) | [`2cea444aaebbbae04e5a0add9dd5cf562649ee8a`](https://github.com/stevepresley/agentmemory/commit/2cea444aaebbbae04e5a0add9dd5cf562649ee8a) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 4 | [Skipped operator-named CT proof (Pi + localllm in tmux)](2026-11-16-1651-Behavior-Observation-04.md) | [`c16bacf9f7206ccb949361db9954a93586561b4b`](https://github.com/stevepresley/agentmemory/commit/c16bacf9f7206ccb949361db9954a93586561b4b) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 5 | [Filed observations before confirmation](2026-11-16-1722-Behavior-Observation-05.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 
 ## Instructions
 
