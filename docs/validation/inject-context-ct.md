@@ -220,7 +220,13 @@ Last number must be at least 1. If 0, retry up to three times and paste every `j
 
 Must be greater than 0. `mem::enrich` does not pass `project` into `mem::file-context`; a bare `README.md` can match another project. That is a separate bug. This procedure only needs a non-empty block.
 
-**Control C, enrich can reach the model.** On `main`, value `1`, run the Step 7 command once. File-context request count must be exactly 1. If 0, stop.
+**Control C, file-context in the CT Pi provider request.** This is not the Tank agent session and not this chat. It is a `pi` process inside the CT, loading `~/.pi/agent/agentmemory`, with production URL/secret from `am-env.sh`. The Step 5 logger records `has_file_context_block` on `before_provider_request`. That bit is true only after the Pi extension sees a `read` / `write` / `edit` tool call and `/enrich` returned content (Control B).
+
+On `main`, value `1`, run the Step 7 command once. Also record whether the Pi JSONL contains a `read` (or write/edit) tool call.
+
+- Tool call happened and count is 1: control passes.
+- Tool call happened and count is 0: stop. Inject did not reach the model.
+- No tool call (local model did not `read`): count 0 is inconclusive for the flag. Do not treat it as a table miss. Record the log line and the missing tool call. Do not run the Pi matrix until a run that actually `read`s, or the operator says to continue without it. Hook matrix (Step 8) does not depend on Control C.
 
 ## Step 7. Pi matrix
 
