@@ -2,11 +2,11 @@
 
 **Project:** agentmemory  
 **Session ID:** 01a1e50f-2c7a-7322-81a6-86c5bbc9912a  
-**Session Time:** 2026-11-16 15:52–22:58 UTC  
+**Session Time:** 2026-11-16 15:52–23:36 UTC  
 
 ---
 
-## Full Incident List (10 Total)
+## Full Incident List (11 Total)
 
 | # | Description | Commit | PR |
 |---|---|---|---|
@@ -20,6 +20,7 @@
 | 8 | [Waited for nano instead of copying the Tank secret file](2026-11-16-2258-Behavior-Observation-08.md) | [`894f24af11019f8c86a7d2a4ab512636f3f55288`](https://github.com/stevepresley/agentmemory/commit/894f24af11019f8c86a7d2a4ab512636f3f55288) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 9 | [Did not evaluate the entire prompt](2026-11-16-2258-Behavior-Observation-09.md) | [`f257c81d896277294103ea74e969b0d335a60d28`](https://github.com/stevepresley/agentmemory/commit/f257c81d896277294103ea74e969b0d335a60d28) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 10 | [Guessed 1B tool-calling without research](2026-11-16-2258-Behavior-Observation-10.md) | [`23c0361f221afc00607ab3e000f7fb7dd3a2d1dc`](https://github.com/stevepresley/agentmemory/commit/23c0361f221afc00607ab3e000f7fb7dd3a2d1dc) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 11 | [Filed #6–#10 without preview](2026-11-16-2336-Behavior-Observation-11.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 
 ## Instructions
 
