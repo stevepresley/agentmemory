@@ -1,6 +1,6 @@
 # AGENTMEMORY_INJECT_CONTEXT CT validation
 
-**Updated:** 2026-11-16 20:45 UTC
+**Updated:** 2026-11-16 21:40 UTC
 
 SoT for proving the inject-context flag on Claude hooks, Pi, and OMP in a tank-lab CT. Do not run this on Atollon, TankV2, or any other Tank host.
 
@@ -27,24 +27,29 @@ The rest of this file is the **client** procedure unless a section is marked **s
 
 ## Production URL and secret (client mode)
 
-A new CT does not have them. Homelab secrets pattern: Bitwarden `_homelab`, file `/etc/agentmemory/agentmemory_secret`. Same name as the fleet. Agent never sees the value.
+A new CT does not have them. The agent running this procedure is already on Tank. Copy the fleet file. Do not wait for the operator to `nano` it on the CT. Do not `cat` it. Do not print it.
 
-### Operator (after the CT id and IP are posted; wait for the operator)
+Fleet path on Tank (and Atollon): `/etc/agentmemory/agentmemory_secret`. LOCATED IN BITWARDEN `_homelab` folder Note.
 
-In the CT as root:
+On Tank, confirm the source file with `stat` only:
 
 ```
-install -d -m 700 /etc/agentmemory
-nano /etc/agentmemory/agentmemory_secret
-chmod 600 /etc/agentmemory/agentmemory_secret
 stat -c '%U:%G %a %s bytes' /etc/agentmemory/agentmemory_secret
 ```
 
-Expected: `root:root 600 21 bytes`. LOCATED IN BITWARDEN `_homelab` folder Note.
+Expected on Tank: `root:agentmemory 640 21 bytes`.
 
-### Agent (only after the operator says it is done)
+Copy into the CT (no value on the command line):
 
-The URL is not a secret. Create a loader that holds no value:
+```
+ssh root@<ip> 'install -d -m 700 /etc/agentmemory'
+rsync -a /etc/agentmemory/agentmemory_secret root@<ip>:/etc/agentmemory/agentmemory_secret
+ssh root@<ip> 'chown root:root /etc/agentmemory/agentmemory_secret; chmod 600 /etc/agentmemory/agentmemory_secret; stat -c "%U:%G %a %s bytes" /etc/agentmemory/agentmemory_secret'
+```
+
+Expected on the CT: `root:root 600 21 bytes`.
+
+Then on the CT, a loader that holds no value:
 
 ```
 cat > /root/am-env.sh <<'EOF'
@@ -55,7 +60,7 @@ EOF
 
 Never expose it. Do not run `env`, `printenv`, `set`, `export -p`, or `set -x`. Do not echo or paste the variable, the file, or any request header. Do not put the value in a command line, a script, a log, or an issue comment.
 
-If the operator has not typed the value, or `SECRET_LEN` is 0, stop and report. Do not search for the secret.
+If `stat` on the CT is not `root:root 600 21 bytes`, or `SECRET_LEN` is 0, stop and report. Do not search for another copy of the secret.
 
 Confirm (prints no secret):
 
@@ -64,7 +69,7 @@ Confirm (prints no secret):
 . /root/am-env.sh && curl -fsS -o /dev/null -w "%{http_code}\n" "$AGENTMEMORY_URL/agentmemory/livez"
 ```
 
-Status must be `200` and `SECRET_LEN` must be greater than 0.
+Status must be `200` and `SECRET_LEN` must be greater than 0. A 21-byte file with a trailing newline yields `SECRET_LEN=20`. That is expected.
 
 ## Server change (local daemon in the CT)
 
