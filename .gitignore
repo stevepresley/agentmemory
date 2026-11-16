@@ -38,3 +38,5 @@ integrations/openclaw/LICENSE
 integrations/omp/skills/
 integrations/omp/LICENSE
 integrations/pi/skills/
+
+tmp/
