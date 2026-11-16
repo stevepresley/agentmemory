@@ -15,11 +15,11 @@
 | 3 | [git status on tmp/ during agent-skills issue search](2026-11-16-1651-Behavior-Observation-03.md) | [`2cea444aaebbbae04e5a0add9dd5cf562649ee8a`](https://github.com/stevepresley/agentmemory/commit/2cea444aaebbbae04e5a0add9dd5cf562649ee8a) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 4 | [Skipped operator-named CT proof (Pi + localllm in tmux)](2026-11-16-1651-Behavior-Observation-04.md) | [`c16bacf9f7206ccb949361db9954a93586561b4b`](https://github.com/stevepresley/agentmemory/commit/c16bacf9f7206ccb949361db9954a93586561b4b) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 | 5 | [Filed observations before confirmation](2026-11-16-1722-Behavior-Observation-05.md) | [`6a5b659fa7760828fbfd01d7d9a24daa7f45809d`](https://github.com/stevepresley/agentmemory/commit/6a5b659fa7760828fbfd01d7d9a24daa7f45809d) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
-| 6 | [Destroyed CT without operator order](2026-11-16-2258-Behavior-Observation-06.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
-| 7 | [Ran a blank CT daemon instead of stopping](2026-11-16-2258-Behavior-Observation-07.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
-| 8 | [Waited for nano instead of copying the Tank secret file](2026-11-16-2258-Behavior-Observation-08.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
-| 9 | [Did not evaluate the entire prompt](2026-11-16-2258-Behavior-Observation-09.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
-| 10 | [Guessed 1B tool-calling without research](2026-11-16-2258-Behavior-Observation-10.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 6 | [Destroyed CT without operator order](2026-11-16-2258-Behavior-Observation-06.md) | [`a8eba5e20f55cd4cb0219d2807304606d93bdd42`](https://github.com/stevepresley/agentmemory/commit/a8eba5e20f55cd4cb0219d2807304606d93bdd42) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 7 | [Ran a blank CT daemon instead of stopping](2026-11-16-2258-Behavior-Observation-07.md) | [`5116ad989e3a9f587f53d2b8a0a81afb37d637b0`](https://github.com/stevepresley/agentmemory/commit/5116ad989e3a9f587f53d2b8a0a81afb37d637b0) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 8 | [Waited for nano instead of copying the Tank secret file](2026-11-16-2258-Behavior-Observation-08.md) | [`894f24af11019f8c86a7d2a4ab512636f3f55288`](https://github.com/stevepresley/agentmemory/commit/894f24af11019f8c86a7d2a4ab512636f3f55288) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 9 | [Did not evaluate the entire prompt](2026-11-16-2258-Behavior-Observation-09.md) | [`f257c81d896277294103ea74e969b0d335a60d28`](https://github.com/stevepresley/agentmemory/commit/f257c81d896277294103ea74e969b0d335a60d28) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 10 | [Guessed 1B tool-calling without research](2026-11-16-2258-Behavior-Observation-10.md) | [`23c0361f221afc00607ab3e000f7fb7dd3a2d1dc`](https://github.com/stevepresley/agentmemory/commit/23c0361f221afc00607ab3e000f7fb7dd3a2d1dc) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 
 ## Instructions
 
