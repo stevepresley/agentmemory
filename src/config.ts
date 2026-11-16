@@ -10,6 +10,7 @@ import type {
   ClaudeBridgeConfig,
   TeamConfig,
 } from "./types.js";
+import { isInjectContextEnabled } from "./inject-context.js";
 
 // Import-side ceiling for observations in a single session (enforced by mem::import).
 // This is independent of MAX_OBS_PER_SESSION, which controls runtime writes.
@@ -622,9 +623,9 @@ export function isAutoCompressEnabled(): boolean {
 // Claude calls (via ANTHROPIC_API_KEY); this stops the Claude Code-side
 // token burn where every tool call silently grew the model input window.
 // Users who want the in-conversation context injection explicitly opt in
-// with AGENTMEMORY_INJECT_CONTEXT=true and get a loud startup warning.
+// with AGENTMEMORY_INJECT_CONTEXT=true or 1 and get a loud startup warning.
 export function isContextInjectionEnabled(): boolean {
-  return getMergedEnv()["AGENTMEMORY_INJECT_CONTEXT"] === "true";
+  return isInjectContextEnabled(getMergedEnv()["AGENTMEMORY_INJECT_CONTEXT"]);
 }
 
 export const CONSOLIDATION_INTERVAL_DEFAULT_MS = 7200000;

@@ -241,8 +241,8 @@ describe("omp extension", () => {
     expect(await handlers.get("session.compacting")!({ sessionId: "first" })).toEqual({ context: ["compaction memory"] });
   });
 
-  it("injects optional enrichment as a valid custom message without changing tool content", async () => {
-    vi.stubEnv("AGENTMEMORY_INJECT_CONTEXT", "1");
+  it.each(["1", "true"])("injects optional enrichment as a valid custom message without changing tool content when AGENTMEMORY_INJECT_CONTEXT=%s", async (flag) => {
+    vi.stubEnv("AGENTMEMORY_INJECT_CONTEXT", flag);
     const { handlers, ctx } = extension();
     await handlers.get("session_start")!({}, ctx);
     handlers.get("tool_call")!({ toolName: "read", input: { path: "sample.ts" } });

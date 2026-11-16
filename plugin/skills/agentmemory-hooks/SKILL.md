@@ -35,7 +35,7 @@ local agentmemory server, which stores it on this machine.
 - SessionStart and SessionEnd frame each unit of work and let `handoff` resume it. SessionEnd also reads the host transcript file to recover user prompts that a hook missed.
 - UserPromptSubmit records each prompt you type.
 - PostToolUse and PostToolUseFailure record the tool name, its input, and its output or error. This includes results returned by other connectors and MCP servers. Long output is truncated and `<private>` blocks and common secret formats are redacted before storage.
-- PreToolUse does nothing by default. With `AGENTMEMORY_INJECT_CONTEXT=true` it sends the file paths and search patterns from a tool's input to look up related memory and prints what it finds.
+- PreToolUse does nothing by default. With `AGENTMEMORY_INJECT_CONTEXT=true` or `1` it sends the file paths and search patterns from a tool's input to look up related memory and prints what it finds.
 - Stop and SubagentStop record the final assistant reply (up to 4,000 characters). SubagentStart, Notification and TaskCompleted record those events.
 - PreCompact syncs memory before the host trims context.
 
@@ -46,7 +46,7 @@ The plugin does not register a git post-commit hook, so commits are linked to se
 ## Important
 
 - The plugin hooks capture without an LLM. Nothing they record goes to an outside AI provider unless `AGENTMEMORY_LLM_PROVIDER` or a cloud `EMBEDDING_PROVIDER` is set on the server. Per-observation LLM compression also needs `AGENTMEMORY_AUTO_COMPRESS=true`.
-- Hook context injection is off by default. SessionStart, PreToolUse and PreCompact print stored memory into the conversation only with `AGENTMEMORY_INJECT_CONTEXT=true`.
+- Hook context injection is off by default. SessionStart, PreToolUse and PreCompact print stored memory into the conversation only with `AGENTMEMORY_INJECT_CONTEXT=true` or `1`.
 - Hooks send the server secret only to a loopback URL or an `https://` URL. Native integrations have their own recall/capture settings; inspect the host configuration instead of assuming these flags control every plugin.
 - If observations are missing, confirm the plugin is enabled and the server is running. See [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 

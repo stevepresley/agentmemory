@@ -72,9 +72,9 @@ const hookPayload = {
 };
 
 describe("session-start stdout shape", () => {
-  it("wraps context in the structured SessionStart envelope for hook_event_name payloads", async () => {
+  it.each(["true", "1"])("wraps context in the structured SessionStart envelope when AGENTMEMORY_INJECT_CONTEXT=%s", async (flag) => {
     const { stdout } = await runSessionStart(hookPayload, {
-      AGENTMEMORY_INJECT_CONTEXT: "true",
+      AGENTMEMORY_INJECT_CONTEXT: flag,
     });
     expect(JSON.parse(stdout)).toEqual({
       hookSpecificOutput: {

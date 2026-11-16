@@ -267,8 +267,8 @@ describe("PreCompact hook", () => {
     expect(result.paths).not.toContain("/agentmemory/context");
   });
 
-  it("prints stored memory when AGENTMEMORY_INJECT_CONTEXT=true", async () => {
-    const result = await runPreCompact({ AGENTMEMORY_INJECT_CONTEXT: "true" });
+  it.each(["true", "1"])("prints stored memory when AGENTMEMORY_INJECT_CONTEXT=%s", async (flag) => {
+    const result = await runPreCompact({ AGENTMEMORY_INJECT_CONTEXT: flag });
     expect(result.stdout).toContain("stored memory");
   });
 });
