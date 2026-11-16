@@ -10,10 +10,10 @@
 
 | # | Description | Commit | PR |
 |---|---|---|---|
-| 1 | [Left Ready on #3 after claim](2026-11-16-1651-Behavior-Observation-01.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
-| 2 | [Did not answer whether the pickup skill names In Progress](2026-11-16-1651-Behavior-Observation-02.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
-| 3 | [git status on tmp/ during agent-skills issue search](2026-11-16-1651-Behavior-Observation-03.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
-| 4 | [Skipped operator-named CT proof (Pi + localllm in tmux)](2026-11-16-1651-Behavior-Observation-04.md) | TBD | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 1 | [Left Ready on #3 after claim](2026-11-16-1651-Behavior-Observation-01.md) | [`d42c3878e1975722e5590ddb1741beea95953815`](https://github.com/stevepresley/agentmemory/commit/d42c3878e1975722e5590ddb1741beea95953815) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 2 | [Did not answer whether the pickup skill names In Progress](2026-11-16-1651-Behavior-Observation-02.md) | [`7fcf26d5db029a4ee20178c47df12539ba04a5d7`](https://github.com/stevepresley/agentmemory/commit/7fcf26d5db029a4ee20178c47df12539ba04a5d7) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 3 | [git status on tmp/ during agent-skills issue search](2026-11-16-1651-Behavior-Observation-03.md) | [`2cea444aaebbbae04e5a0add9dd5cf562649ee8a`](https://github.com/stevepresley/agentmemory/commit/2cea444aaebbbae04e5a0add9dd5cf562649ee8a) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
+| 4 | [Skipped operator-named CT proof (Pi + localllm in tmux)](2026-11-16-1651-Behavior-Observation-04.md) | [`c16bacf9f7206ccb949361db9954a93586561b4b`](https://github.com/stevepresley/agentmemory/commit/c16bacf9f7206ccb949361db9954a93586561b4b) | [4](https://github.com/stevepresley/agentmemory/pull/4) |
 
 ## Instructions
 
