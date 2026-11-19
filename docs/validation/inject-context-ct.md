@@ -1,6 +1,6 @@
 # AGENTMEMORY_INJECT_CONTEXT CT validation
 
-**Updated:** 2026-11-16 21:40 UTC
+**Updated:** 2026-11-18 21:00 UTC
 
 SoT for proving the inject-context flag on Claude hooks, Pi, and OMP in a tank-lab CT. Do not run this on Atollon, TankV2, or any other Tank host.
 
@@ -218,19 +218,35 @@ Last number must be at least 1. If 0, retry up to three times and paste every `j
 . /root/am-env.sh && curl -fsS -X POST "$AGENTMEMORY_URL/agentmemory/enrich" -H "Authorization: Bearer $AGENTMEMORY_SECRET" -H "Content-Type: application/json" -d '{"sessionId":"ctl-b","project":"agentmemory","files":["/root/agentmemory/README.md"],"toolName":"enrich_inject"}' | jq '(.context // "") | length'
 ```
 
-Must be greater than 0. `mem::enrich` does not pass `project` into `mem::file-context`; a bare `README.md` can match another project. That is a separate bug. This procedure only needs a non-empty block.
+Must be greater than 0. Also print whether the body contains the tag `agentmemory-file-context` (the logger counts that string, not length). A non-empty body that is only `<agentmemory-relevant-context>` is not a file-context hit. `mem::enrich` does not pass `project` into `mem::file-context`; a bare `README.md` can match another project. That is a separate bug. This procedure needs the tag, not only a non-zero length.
 
-**Control C, file-context in the CT Pi provider request.** This is not the Tank agent session and not this chat. It is a `pi` process inside the CT, loading `~/.pi/agent/agentmemory`, with production URL/secret from `am-env.sh`. The Step 5 logger records `has_file_context_block` on `before_provider_request`. That bit is true only after the Pi extension sees a `read` / `write` / `edit` tool call and `/enrich` returned content (Control B).
+**Why Control C can be 0 even after a real `read`.** The file-context block is built only from observations whose `files` list contains the path. Pi's own `read` observations are stored with `files: []` (the path is in the subtitle). The only observations that can fill the block are from other clients, in the 15 newest sessions of any project. The current session is excluded. Each Pi run adds a session, so a seed rotates out within about 14 runs. Seed an absolute path `/root/agentmemory/README.md` so both `README.md` and the absolute form match.
 
-On `main`, value `1`, run the Step 7 command once. Also record whether the Pi JSONL contains a `read` (or write/edit) tool call.
+**Seed (before Control C and before every Step 7 Pi run).** Use the real Claude hook script and an object `tool_input`. The hook posts in the background; wait a few seconds and rerun the tag check if it prints false.
 
-- Tool call happened and count is 1: control passes.
-- Tool call happened and count is 0: stop. Inject did not reach the model.
+```
+. /root/am-env.sh && S="seed-ctlc-$(date -u +%Y%m%dT%H%M%S)" && echo "{\"session_id\":\"$S\",\"cwd\":\"/root/agentmemory\",\"hook_event_name\":\"PostToolUse\",\"tool_name\":\"Read\",\"tool_input\":{\"file_path\":\"/root/agentmemory/README.md\"},\"tool_response\":\"seed\"}" | node /root/agentmemory/plugin/scripts/post-tool-use.mjs
+```
+
+Then check the tag for both path forms Pi will use. Both must print true. Then run Pi immediately.
+
+```
+. /root/am-env.sh && curl -fsS -X POST "$AGENTMEMORY_URL/agentmemory/enrich" -H "Authorization: Bearer $AGENTMEMORY_SECRET" -H "Content-Type: application/json" -d '{"sessionId":"ctl-c-check","project":"agentmemory","files":["README.md"],"toolName":"enrich_inject"}' | python3 -c 'import sys,json; c=(json.load(sys.stdin).get("context") or ""); print(len(c), "agentmemory-file-context" in c)'
+. /root/am-env.sh && curl -fsS -X POST "$AGENTMEMORY_URL/agentmemory/enrich" -H "Authorization: Bearer $AGENTMEMORY_SECRET" -H "Content-Type: application/json" -d '{"sessionId":"ctl-c-check","project":"agentmemory","files":["/root/agentmemory/README.md"],"toolName":"enrich_inject"}' | python3 -c 'import sys,json; c=(json.load(sys.stdin).get("context") or ""); print(len(c), "agentmemory-file-context" in c)'
+```
+
+**Control C, file-context in the CT Pi provider request.** This is not the Tank agent session and not this chat. It is a `pi` process inside the CT, `cwd` `/root/agentmemory`, loading `~/.pi/agent/agentmemory`, with production URL/secret from `am-env.sh`. Run from `/root/agentmemory`. The Step 5 logger records `has_file_context_block` on `before_provider_request`. That bit is true only after the Pi extension sees a `read` / `write` / `edit` tool call and `/enrich` returned a body that contains `agentmemory-file-context`.
+
+On `main`, value `1`: seed, confirm both tag checks true, then run the Step 7 command once. Count completed `read` tool calls in that Pi session file. Add `reads=<n> blocks=<n>`.
+
+- Tool call happened and `blocks` equals `reads`: control passes.
+- Tool call happened and `blocks` is 0: stop. Inject did not reach the model.
+- `blocks` and `reads` differ: report both numbers. Do not treat extra blocks as a pass unless they equal completed reads.
 - No tool call (local model did not `read`): count 0 is inconclusive for the flag. Do not treat it as a table miss. Record the log line and the missing tool call. Do not run the Pi matrix until a run that actually `read`s, or the operator says to continue without it. Hook matrix (Step 8) does not depend on Control C.
 
 ## Step 7. Pi matrix
 
-Values: unset, `0`, `true`, `TRUE`, `1`. Unset: `env -u AGENTMEMORY_INJECT_CONTEXT`. Example for `1`:
+Values: unset, `0`, `true`, `TRUE`, `1`. Unset: `env -u AGENTMEMORY_INJECT_CONTEXT`. Seed and pass both tag checks before **every** value, then run immediately. Example for `1`:
 
 ```
 : > /root/provider-request-log.jsonl
@@ -240,7 +256,7 @@ jq -c . /root/provider-request-log.jsonl
 jq -s '[.[] | select(.has_file_context_block)] | length' /root/provider-request-log.jsonl
 ```
 
-On: exactly one request with the file-context block. Off: zero. Paste the whole `jq -c .` line for each value.
+A Pi run produces one request containing `agentmemory-file-context` for each `read` tool call that completes. Flag-on expected count is the number of completed `read` calls, not always 1. Flag-off expected count is 0. Paste the whole `jq -c .` line for each value, plus `reads=<n> blocks=<n>` from that run's Pi session file.
 
 ## Step 8. Claude hook matrix
 
@@ -263,14 +279,14 @@ On `main`:
 | --- | --- | --- |
 | `true` | yes | 0 |
 | `TRUE` | none | 0 |
-| `1` | none | 1 |
+| `1` | none | equals completed `read` count |
 | unset, `0` | none | 0 |
 
 After the fix:
 
 | Value | Hook output (Step 8) | Pi file-context requests (Step 7) |
 | --- | --- | --- |
-| `true`, `TRUE`, `1` | yes | 1 |
+| `true`, `TRUE`, `1` | yes | equals completed `read` count |
 | unset, `0` | none | 0 |
 
 Any difference from these tables is the result. Do not explain it away.
@@ -282,7 +298,7 @@ Any difference from these tables is the result. Do not explain it away.
 UNIT TESTS:   focused <pass>/<fail>   full <pass>/<fail>
 CONTROL A:    <n> requests with the recall code word   (attempts: <1-3>)
 CONTROL B:    enrich length <n>
-CONTROL C:    <n> requests with the file-context block (value 1)
+CONTROL C:    reads=<n> blocks=<n> (value 1)
 
 VALUE   | session-start | pre-tool-use | pre-compact | Pi file-context requests
 unset   | <yes/none>    | <yes/none>   | <yes/none>  | <n>
