@@ -108,6 +108,20 @@ describe("pre-tool-use hook — context injection gate", () => {
     expect(result.exitCode).toBe(0);
     expect(result.stdout).toBe("");
   });
+
+  it("when AGENTMEMORY_INJECT_CONTEXT=1, hook still runs but safely errors on unreachable backend", async () => {
+    const payload = JSON.stringify({
+      session_id: "ses_test",
+      tool_name: "Read",
+      tool_input: { file_path: "src/foo.ts" },
+    });
+    const result = await runHook("pre-tool-use.mjs", payload, {
+      AGENTMEMORY_INJECT_CONTEXT: "1",
+      AGENTMEMORY_URL: "http://127.0.0.1:1",
+    });
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toBe("");
+  });
 });
 
 describe("session-start hook — context injection gate", () => {

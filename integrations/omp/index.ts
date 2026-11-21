@@ -7,6 +7,7 @@ import type { AgentToolResult, ExtensionAPI, ExtensionContext } from "@oh-my-pi/
 import path from "node:path";
 import { execSync } from "node:child_process";
 import { guardPlaintextBearerAuth, resolveSecret } from "./security.js";
+import { isInjectContextEnabled } from "../../src/inject-context.js";
 
 type TextBlock = { type?: string; text?: string };
 type AssistantMessage = { role?: string; content?: unknown };
@@ -394,7 +395,7 @@ export default function agentmemoryExtension(pi: ExtensionAPI) {
 
   // context — optionally inject file enrichment
   pi.on("context", async (event) => {
-    const enrichEnabled = process.env["AGENTMEMORY_INJECT_CONTEXT"] === "1";
+    const enrichEnabled = isInjectContextEnabled(process.env["AGENTMEMORY_INJECT_CONTEXT"]);
     if (enrichEnabled && fileStash.size > 0 && lastHealthOk) {
       const files = [...fileStash].slice(0, 20);
       fileStash.clear();

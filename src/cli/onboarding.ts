@@ -29,6 +29,7 @@ import { appendFileSync, readFileSync } from "node:fs";
 import { readPrefs, writePrefs } from "./preferences.js";
 import { ADAPTERS, resolveAdapter, runAdapter } from "./connect/index.js";
 import type { ConnectResult } from "./connect/types.js";
+import { isInjectContextEnabled } from "../inject-context.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -279,7 +280,8 @@ function enableInjectContextInEnv(envPath: string | null): boolean {
   if (!envPath || !existsSync(envPath)) return false;
   try {
     const current = readFileSync(envPath, "utf-8");
-    if (/^\s*AGENTMEMORY_INJECT_CONTEXT\s*=\s*true\b/m.test(current)) {
+    const existing = current.match(/^\s*AGENTMEMORY_INJECT_CONTEXT\s*=\s*(.*)$/m);
+    if (isInjectContextEnabled(existing?.[1]?.trim())) {
       return true;
     }
     const prefix = current.length > 0 && !current.endsWith("\n") ? "\n" : "";
@@ -312,14 +314,14 @@ async function maybePromptContextInjection(envPath: string | null): Promise<void
   if (enable === true) {
     const wrote = enableInjectContextInEnv(envPath);
     if (wrote) {
-      p.log.success("Context injection enabled (AGENTMEMORY_INJECT_CONTEXT=true).");
+      p.log.success("Context injection enabled (AGENTMEMORY_INJECT_CONTEXT=true or 1).");
     } else {
       p.log.warn(
-        "Could not update ~/.agentmemory/.env. Set AGENTMEMORY_INJECT_CONTEXT=true there to enable it.",
+        "Could not update ~/.agentmemory/.env. Set AGENTMEMORY_INJECT_CONTEXT=true or 1 there to enable it.",
       );
     }
   } else {
-    p.log.info("Context injection left off. Set AGENTMEMORY_INJECT_CONTEXT=true later to enable.");
+    p.log.info("Context injection left off. Set AGENTMEMORY_INJECT_CONTEXT=true or 1 later to enable.");
   }
 }
 

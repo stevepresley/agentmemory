@@ -2,6 +2,7 @@
 import { preCompactBudget } from "./_capture-filter.js";
 import { hookAuthHeaders, reportBlockedTransport, resolveHookEndpoint } from "./_endpoint.js";
 import { resolveProject, hookCwd } from "./_project.js";
+import { isInjectContextEnabled } from "../inject-context.js";
 
 function isSdkChildContext(payload: unknown): boolean {
   if (process.env["AGENTMEMORY_SDK_CHILD"] === "1") return true;
@@ -9,7 +10,7 @@ function isSdkChildContext(payload: unknown): boolean {
   return (payload as { entrypoint?: unknown }).entrypoint === "sdk-ts";
 }
 
-const INJECT_CONTEXT = process.env["AGENTMEMORY_INJECT_CONTEXT"] === "true";
+const INJECT_CONTEXT = isInjectContextEnabled(process.env["AGENTMEMORY_INJECT_CONTEXT"]);
 const ENDPOINT = resolveHookEndpoint();
 const REST_URL = ENDPOINT.url;
 

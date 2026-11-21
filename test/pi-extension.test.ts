@@ -102,8 +102,8 @@ describe("Pi extension", () => {
     vi.mocked(fetch).mockClear(); handlers.get("agent_end")!({ messages: [{ role: "assistant", content: "stale" }] });
     expect(fetch).not.toHaveBeenCalled();
   });
-  it("adds post-compaction and optional file context without replacing messages", async () => {
-    vi.stubEnv("AGENTMEMORY_INJECT_CONTEXT", "1");
+  it.each(["1", "true"])("adds post-compaction and optional file context without replacing messages when AGENTMEMORY_INJECT_CONTEXT=%s", async (flag) => {
+    vi.stubEnv("AGENTMEMORY_INJECT_CONTEXT", flag);
     const { handlers } = extension(); handlers.get("session_compact")!({}); handlers.get("tool_call")!(tool);
     vi.mocked(fetch).mockImplementation(async () => Response.json({ context: "reference" }));
     const messages = [{ role: "toolResult", content: "x".repeat(12000) }];

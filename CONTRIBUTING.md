@@ -33,6 +33,8 @@ If it's a feature: describe the user problem before the implementation. "I could
 
 Run `npm run build` before focused DSH connector tests too: `npm test -- test/connect-dsh.test.ts` loads the generated `dist/integrations/dsh.mjs` bundle.
 
+CT proof for `AGENTMEMORY_INJECT_CONTEXT` (client vs local-server modes): [docs/validation/inject-context-ct.md](./docs/validation/inject-context-ct.md).
+
 ## Pull request flow
 
 - Keep PRs small and focused. One logical change per PR.

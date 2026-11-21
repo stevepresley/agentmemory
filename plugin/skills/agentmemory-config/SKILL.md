@@ -69,9 +69,9 @@ A provider key in the environment does nothing until `AGENTMEMORY_LLM_PROVIDER` 
   Per-observation LLM compression also needs `AGENTMEMORY_AUTO_COMPRESS=true`.
 - Hook context injection is off by default. The SessionStart and PreCompact hooks
   print stored memory into the conversation only with
-  `AGENTMEMORY_INJECT_CONTEXT=true`. Native integrations have independent recall
-  settings: Pi and OMP recall before prompts by default, and use
-  `AGENTMEMORY_INJECT_CONTEXT=1` in the host launch environment for optional file
+  `AGENTMEMORY_INJECT_CONTEXT=true` or `1`. Native integrations have independent recall
+  settings: Pi and OMP recall before prompts by default, and use the same flag
+  (`true` or `1`) in the host launch environment for optional file
   enrichment. Do not apply daemon `.env` settings to every host implicitly.
 - Consolidation runs only after an LLM provider is selected or
   `AGENTMEMORY_ALLOW_AGENT_SDK=true` is set (`CONSOLIDATION_ENABLED=false` disables it). Structured slots require `AGENTMEMORY_SLOTS=true`; slot reflection also requires `AGENTMEMORY_REFLECT=true`.

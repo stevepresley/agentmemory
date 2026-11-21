@@ -806,7 +806,7 @@ Memories decay over time (Ebbinghaus curve). Frequently accessed memories streng
 
 ### What Gets Captured
 
-The table below describes the Claude Code hook surface. Other integrations capture the events their host provides; see the individual setup guides. Automatic context injection through the shared hooks is opt-in with `AGENTMEMORY_INJECT_CONTEXT=true`.
+The table below describes the Claude Code hook surface. Other integrations capture the events their host provides; see the individual setup guides. Automatic context injection through the shared hooks is opt-in with `AGENTMEMORY_INJECT_CONTEXT=true` or `1`.
 
 | Hook | Captures |
 |------|----------|
@@ -1201,7 +1201,7 @@ Common options for `~/.agentmemory/.env`:
 EMBEDDING_PROVIDER=local
 
 # Optional automatic context injection through the shared hooks
-# AGENTMEMORY_INJECT_CONTEXT=true
+# AGENTMEMORY_INJECT_CONTEXT=true   # or 1
 # Set the PreToolUse timeout in the hook process environment, not this server file:
 # AGENTMEMORY_ENRICH_TIMEOUT_MS=2000 (default 2000 ms)
 

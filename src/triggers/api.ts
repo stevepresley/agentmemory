@@ -271,7 +271,7 @@ export function buildConfigFlags() {
       affects: ["Hooks"],
       needsLlm: false,
       description: "Hooks write recalled context into Claude Code's conversation. OFF captures in the background without injecting.",
-      enableHow: "Set AGENTMEMORY_INJECT_CONTEXT=true and restart.",
+      enableHow: "Set AGENTMEMORY_INJECT_CONTEXT=true or 1 and restart.",
       docsHref: "https://github.com/rohitg00/agentmemory#environment-variables",
     },
   ];

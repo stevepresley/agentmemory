@@ -9,6 +9,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { realpathSync } from "node:fs";
 import { guardPlaintextBearerAuth, resolveSecret } from "./security.js";
+import { isInjectContextEnabled } from "../../src/inject-context.js";
 
 function repositoryRoot(dir: string, top: string, gitDir?: string, commonDir?: string): string {
   if (!gitDir || !commonDir) return top;
@@ -364,7 +365,7 @@ export default function agentmemoryExtension(pi: ExtensionAPI) {
   });
 
   pi.on("tool_call", event => {
-    if (process.env.AGENTMEMORY_INJECT_CONTEXT !== "1" || !["read", "write", "edit"].includes(event.toolName)) return;
+    if (!isInjectContextEnabled(process.env.AGENTMEMORY_INJECT_CONTEXT) || !["read", "write", "edit"].includes(event.toolName)) return;
     const input = event.input as Record<string, unknown>;
     const file = input.path ?? input.file_path;
     if (typeof file === "string" && fileStash.size < 20) fileStash.add(file);
@@ -391,7 +392,7 @@ export default function agentmemoryExtension(pi: ExtensionAPI) {
         if (result?.context) references.push(result.context);
       }
     }
-    if (process.env.AGENTMEMORY_INJECT_CONTEXT === "1" && fileStash.size) {
+    if (isInjectContextEnabled(process.env.AGENTMEMORY_INJECT_CONTEXT) && fileStash.size) {
       const files = [...fileStash]; fileStash.clear();
       const result = await callAgentMemory<{ context?: string }>("enrich", { body: { sessionId, project: currentProject, files, toolName: "enrich_inject" }, timeoutMs: 1500 });
       if (result?.context) references.push(result.context);

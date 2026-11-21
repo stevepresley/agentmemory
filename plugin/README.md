@@ -55,7 +55,7 @@ By default, nothing. Search uses local keyword matching, and no LLM is called. C
 - A Redis state backend stores records on the Redis server you configure.
 - Mesh sync sends memories to peer agentmemory servers that you register.
 
-Context injection is also off by default. The plugin prints stored memory into the conversation only when you set `AGENTMEMORY_INJECT_CONTEXT=true`.
+Context injection is also off by default. The plugin prints stored memory into the conversation only when you set `AGENTMEMORY_INJECT_CONTEXT=true` or `1`.
 
 ## View and delete your data
 
